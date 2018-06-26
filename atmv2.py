@@ -1,5 +1,5 @@
 class atm():
-    balance=50000
+    balance=50000.00
     def __init__(self,withdraw=0,deposit=0):
         self.withdraw=withdraw
         self.deposit=deposit
@@ -27,9 +27,9 @@ class atm():
         if self.withdraw>self.balance:
             print("You can't withdraw that much money!\
             There is only $", balance, "in your account")
-        elif self.withdraw<self.balance and self.withdraw>=0:
+        elif self.withdraw<=self.balance and self.withdraw>=0:
             atm.balance-=self.withdraw
-            print("You withdraw $", self.withdraw, "And have $", self.balance,"left in your account")
+            print("You withdraw $", self.withdraw, "And have $", "{0:.2f}".format(self.balance),"left in your account")
             return(atm.balance)
         elif self.withdraw<0:
             print("You can't withdraw a negative amount!")
@@ -43,7 +43,7 @@ class atm():
             print("You can't deposit a negative amount!")
 
     def check_balance(self):
-        print("Your current balance is:", self.balance)
+        print("Your current balance is:", "{0:.2f}".format(self.balance))
 
     def commands(self):
         print("Welcome to the ATM, what would you like to do?\
@@ -54,13 +54,13 @@ class atm():
         action=input("Enter your choice")
         if action=='withdraw':
             try:
-                choice=atm(withdraw=int(input("Enter amount to withdraw")))
+                choice=atm(withdraw=float(input("Enter amount to withdraw")))
                 atm.withdraw_money(choice)
             except ValueError:
                     print("You did not enter a number")
         elif action=='deposit':
             try:
-                choice=atm(deposit=int(input("Enter amount to deposit")))
+                choice=atm(deposit=float(input("Enter amount to deposit")))
                 atm.deposit_money(choice)
             except ValueError:
                     print("You did not enter a number")
@@ -77,14 +77,15 @@ if card_info==True:
     selection=atm()
     atm.commands(selection)
     choices=input("would you like to try another option? Y/N")
+
+    while choices !='N' and choices != 'Y':
+        print("You did not pick a choosable option. Please try again!")
+        choices=input("would you like to try another option? Y/N")
+
     while choices =='Y':
         selection=atm()
         atm.commands(selection)
         choices=input("would you like to try another option? Y/N")
+
     if choices=="N":
         print("Thank you for using the ATM, Goodbye!")
-    else:
-        print("You did not pick a choosable option. Please try again!")
-        selection=atm()
-        atm.commands(selection)
-        choices=input("would you like to try another option? Y/N")
